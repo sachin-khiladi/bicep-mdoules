@@ -26,7 +26,9 @@ The CI workflow enforces:
 
 ## Publish to ACR
 
-Release tags (`v*.*.*`) trigger module publication to ACR as OCI artifacts.
+Pushes to `main` that change module/resource content trigger automatic publication to ACR as OCI artifacts.
+
+The publish workflow automatically creates the next patch tag (`vMAJOR.MINOR.PATCH`) and publishes with that version.
 
 Target format:
 
