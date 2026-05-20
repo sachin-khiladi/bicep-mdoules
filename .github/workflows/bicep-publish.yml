@@ -2,8 +2,8 @@ name: Publish Bicep Module
 
 on:
   push:
-    branches:
-      - main
+    # branches:
+    #   - main
     paths:
       - '.github/workflows/bicep-publish.yml'
 
