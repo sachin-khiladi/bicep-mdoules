@@ -20,6 +20,9 @@ permissions:
 jobs:
   publish-storage-module:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
 
     steps:
       - name: Checkout
