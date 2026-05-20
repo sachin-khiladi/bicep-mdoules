@@ -1,0 +1,7 @@
+{
+  "name": "storage",
+  "description": "Storage account wrapper module that calls the decoupled resource template.",
+  "owner": "platform-team",
+  "versioning": "semver",
+  "scope": "resourceGroup"
+}

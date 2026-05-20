@@ -1,0 +1,66 @@
+name: Publish Bicep Module
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  publish-storage-module:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Ensure Bicep CLI
+        run: az bicep install
+
+      - name: Parse version from git tag
+        id: version
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="${GITHUB_REF_NAME}"
+          VERSION="${TAG#v}"
+          if [[ -z "${VERSION}" ]]; then
+            echo "Could not parse version from tag ${TAG}"
+            exit 1
+          fi
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+
+      - name: Validate ACR name input
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "${{ secrets.ACR_NAME }}" ]]; then
+            echo "ACR_NAME secret is required"
+            exit 1
+          fi
+
+      - name: Login to ACR
+        shell: bash
+        run: |
+          set -euo pipefail
+          az acr login --name "${{ secrets.ACR_NAME }}"
+
+      - name: Publish storage module to ACR OCI registry
+        shell: bash
+        run: |
+          set -euo pipefail
+          TARGET="br:${{ secrets.ACR_NAME }}.azurecr.io/bicep/modules/storage:${{ steps.version.outputs.version }}"
+          echo "Publishing to ${TARGET}"
+          az bicep publish \
+            --file modules/storage/main.bicep \
+            --target "${TARGET}"

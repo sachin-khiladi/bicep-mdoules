@@ -1,0 +1,33 @@
+{
+  "analyzers": {
+    "core": {
+      "enabled": true,
+      "rules": {
+        "adminUsernameShouldNotBeLiteral": {
+          "level": "error"
+        },
+        "maxResources": {
+          "level": "warning"
+        },
+        "noHardcodedEnvUrls": {
+          "level": "error"
+        },
+        "noUnusedExistingResources": {
+          "level": "warning"
+        },
+        "outputsShouldNotContainSecrets": {
+          "level": "error"
+        },
+        "secureParameterDefault": {
+          "level": "error"
+        },
+        "useResourceIdFunctions": {
+          "level": "warning"
+        },
+        "useStableResourceIdentifiers": {
+          "level": "warning"
+        }
+      }
+    }
+  }
+}

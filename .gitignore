@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# Build artifacts
+build/
+dist/
+
+# Generated ARM templates
+*.json
+!bicepconfig.json
+!modules/**/metadata.json
+
+# VS Code
+.vscode/
