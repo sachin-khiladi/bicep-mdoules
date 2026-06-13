@@ -1,0 +1,58 @@
+flowchart LR
+  %% Styles
+  classDef source fill:#e3f2fd,stroke:#1e88e5,stroke-width:1px,color:#0d47a1;
+  classDef module fill:#ede7f6,stroke:#5e35b1,stroke-width:1px,color:#311b92;
+  classDef example fill:#e8f5e9,stroke:#2e7d32,stroke-width:1px,color:#1b5e20;
+  classDef ci fill:#fff8e1,stroke:#f9a825,stroke-width:1px,color:#e65100;
+  classDef docs fill:#fce4ec,stroke:#d81b60,stroke-width:1px,color:#880e4f;
+
+  subgraph Authoring[Authoring & Source of Truth]
+    R[resources/storageAccount/main.bicep\nBase resource definition]
+    M[modules/storage/main.bicep\nReusable module wrapper]
+    E[examples/storage/main.bicep\nConsumer usage example]
+  end
+
+  subgraph Build[Build Artifacts]
+    RJ[resources/storageAccount/main.json]
+    MJ[modules/storage/main.json]
+    EJ[examples/storage/main.json]
+  end
+
+  subgraph Quality[Quality & Governance]
+    V[scripts/validate-bicep.sh\nValidation entrypoint]
+    C[bicepconfig.json\nAnalyzer & lint rules]
+  end
+
+  subgraph Documentation[Documentation]
+    RM[README.md\nRepo workflows and usage]
+    MM[modules/storage/README.md\nModule usage and contract]
+    MD[modules/storage/metadata.json\nModule metadata]
+  end
+
+  %% Main authoring workflow
+  R --> M --> E
+
+  %% Compile flow to ARM JSON
+  R --> RJ
+  M --> MJ
+  E --> EJ
+
+  %% Validation flow
+  R --> V
+  M --> V
+  E --> V
+  C --> V
+
+  %% Documentation alignment
+  M --> MM
+  M --> MD
+  E --> RM
+  V --> RM
+
+  %% Class assignments
+  class R source;
+  class M module;
+  class E example;
+  class RJ,MJ,EJ ci;
+  class V,C ci;
+  class RM,MM,MD docs;

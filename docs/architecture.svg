@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Bicep repository architecture workflow diagram">
+  <defs>
+    <style>
+      .title{font:700 28px Arial, sans-serif; fill:#0f172a}
+      .group{fill:#f8fafc; stroke:#94a3b8; stroke-width:2; rx:14}
+      .gtitle{font:700 18px Arial, sans-serif; fill:#334155}
+      .node{stroke-width:2; rx:10}
+      .source{fill:#e3f2fd; stroke:#1e88e5}
+      .module{fill:#ede7f6; stroke:#5e35b1}
+      .example{fill:#e8f5e9; stroke:#2e7d32}
+      .ci{fill:#fff8e1; stroke:#f9a825}
+      .docs{fill:#fce4ec; stroke:#d81b60}
+      .label{font:14px Arial, sans-serif; fill:#0f172a}
+      .small{font:12px Arial, sans-serif; fill:#334155}
+      .arrow{stroke:#475569; stroke-width:2.2; fill:none; marker-end:url(#arrow)}
+      .dashed{stroke-dasharray:7 6}
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <text x="40" y="50" class="title">bicep-mdoules — Architecture &amp; Workflow</text>
+
+  <rect class="group" x="35" y="85" width="760" height="300"/>
+  <text x="55" y="115" class="gtitle">Authoring &amp; Source of Truth</text>
+
+  <rect class="node source" x="60" y="150" width="220" height="90"/>
+  <text x="75" y="178" class="label">resources/storageAccount</text>
+  <text x="75" y="200" class="small">main.bicep</text>
+  <text x="75" y="220" class="small">Base resource definition</text>
+
+  <rect class="node module" x="315" y="150" width="220" height="90"/>
+  <text x="330" y="178" class="label">modules/storage</text>
+  <text x="330" y="200" class="small">main.bicep</text>
+  <text x="330" y="220" class="small">Reusable module wrapper</text>
+
+  <rect class="node example" x="570" y="150" width="200" height="90"/>
+  <text x="585" y="178" class="label">examples/storage</text>
+  <text x="585" y="200" class="small">main.bicep</text>
+  <text x="585" y="220" class="small">Consumer usage sample</text>
+
+  <path class="arrow" d="M280 195 L315 195"/>
+  <path class="arrow" d="M535 195 L570 195"/>
+
+  <rect class="group" x="35" y="410" width="760" height="230"/>
+  <text x="55" y="440" class="gtitle">Build Artifacts (Compiled ARM JSON)</text>
+
+  <rect class="node ci" x="60" y="470" width="220" height="80"/>
+  <text x="75" y="500" class="label">resources/storageAccount</text>
+  <text x="75" y="522" class="small">main.json</text>
+
+  <rect class="node ci" x="315" y="470" width="220" height="80"/>
+  <text x="330" y="500" class="label">modules/storage</text>
+  <text x="330" y="522" class="small">main.json</text>
+
+  <rect class="node ci" x="570" y="470" width="200" height="80"/>
+  <text x="585" y="500" class="label">examples/storage</text>
+  <text x="585" y="522" class="small">main.json</text>
+
+  <path class="arrow dashed" d="M170 240 L170 470"/>
+  <path class="arrow dashed" d="M425 240 L425 470"/>
+  <path class="arrow dashed" d="M670 240 L670 470"/>
+
+  <rect class="group" x="840" y="85" width="725" height="260"/>
+  <text x="860" y="115" class="gtitle">Quality &amp; Governance</text>
+
+  <rect class="node ci" x="870" y="155" width="260" height="90"/>
+  <text x="885" y="185" class="label">scripts/validate-bicep.sh</text>
+  <text x="885" y="207" class="small">Validation entrypoint</text>
+
+  <rect class="node ci" x="1170" y="155" width="360" height="90"/>
+  <text x="1185" y="185" class="label">bicepconfig.json</text>
+  <text x="1185" y="207" class="small">Analyzer + lint configuration</text>
+
+  <path class="arrow" d="M1170 200 L1130 200"/>
+  <path class="arrow" d="M770 195 L870 195"/>
+  <path class="arrow" d="M670 240 L980 155"/>
+
+  <rect class="group" x="840" y="375" width="725" height="265"/>
+  <text x="860" y="405" class="gtitle">Documentation</text>
+
+  <rect class="node docs" x="870" y="445" width="220" height="90"/>
+  <text x="885" y="475" class="label">README.md</text>
+  <text x="885" y="497" class="small">Repo workflows + usage</text>
+
+  <rect class="node docs" x="1120" y="445" width="220" height="90"/>
+  <text x="1135" y="475" class="label">modules/storage/README.md</text>
+  <text x="1135" y="497" class="small">Module docs</text>
+
+  <rect class="node docs" x="1370" y="445" width="170" height="90"/>
+  <text x="1385" y="475" class="label">metadata.json</text>
+  <text x="1385" y="497" class="small">Module metadata</text>
+
+  <path class="arrow" d="M535 195 L1120 445"/>
+  <path class="arrow" d="M535 195 L1370 445"/>
+  <path class="arrow" d="M1130 200 L980 445"/>
+
+  <text x="40" y="845" class="small">Primary workflow: resources → modules → examples; with compile, validation, and documentation outputs.</text>
+</svg>

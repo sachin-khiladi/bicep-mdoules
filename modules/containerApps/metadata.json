@@ -1,0 +1,7 @@
+{
+  "name": "containerApps",
+  "description": "Azure Container Apps module that provisions a managed environment, Log Analytics workspace, and container app in one deployment.",
+  "owner": "platform-team",
+  "versioning": "semver",
+  "scope": "resourceGroup"
+}
